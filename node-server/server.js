@@ -9,7 +9,7 @@ const fs = require('fs')
 
 // u might recall from a few weeks back that every application that needs access to the Internet needs to run on a "port" that isn't being used. this is b/c every app shares the same IP address which is assigned to the computer, so the computer needs some way to know where to send traffic it receives from the router.
 
-const port = Number(process.argv[2]) || 8000
+const port = process.argv[2] || 8000
 
 // a typical web server usually runs on port 80, however because this port requires root privleage (meaning u have to run ur command w/"sudo"), during development most programmers choose a port like 8000 or 8888, or sometimes also 3000 or something like that.
 

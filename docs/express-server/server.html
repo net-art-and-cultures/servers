@@ -50,12 +50,9 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <h3 id="writing-a-server-using-the-express-js-framework">writing a server using the <a href="https://expressjs.com/">express.js</a> framework</h3>
+
             </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)
-<span class="hljs-keyword">const</span> app = express() <span class="hljs-comment">// create a server app with the express library</span>
-<span class="hljs-keyword">const</span> port = process.argv[<span class="hljs-number">2</span>] || <span class="hljs-number">8000</span> <span class="hljs-comment">// if they didn't specify a port, use 8000</span></pre></div></div>
             
         </li>
         
@@ -66,14 +63,11 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>app.use(express.static(<code>${__dirname}/www</code>)) // use the www folder for all requests</p>
+              <p>assuming u’ve already download the expressjs library &amp;&amp; all of it’s dependencies into the <code>node_modules</code> folder (see the repo’s <a href="https://github.com/net-art-and-cultures/servers">README</a> for instructions) we can start by importing the express module just like we did the core modules in the last example</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>
-app.get(<span class="hljs-string">'/'</span>, (req, res) =&gt; {
-  res.sendFile(<span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/package.json`</span>)
-})</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)</pre></div></div>
             
         </li>
         
@@ -84,7 +78,67 @@ app.get(<span class="hljs-string">'/'</span>, (req, res) =&gt; {
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>run the server, it automatically starts listening for requests</p>
+              <p>it’s SO MUCH easier to create a server using express than doing it from scratch like we did in the last example, we start by using the express module as a function to create our server (we’ll call it “app” because that’s the convention, unlike the last example where we called it “server”)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> app = express()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>just like we did in the last example we’ll create a variable to store our port number passed in by the user who runs the server, but we’ll have a backup default port value in case they don’t specify one.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> port = <span class="hljs-built_in">Number</span>(process.argv[<span class="hljs-number">2</span>]) || <span class="hljs-number">8000</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>in our last example we had to create all our responses from scratch, figuring out what file the client was requesting based on the request URI, then checking to see if that file existed on our hard drive, then creating a respnose from sratch with the right headers (which included the status codes &amp;&amp; file types) and body data. but express can handle all of tha for us! we can do this by using the express module’s <code>static()</code> method which takes a path to the directory we have all our static files stored in (which is the www folder just like the last example), here again we’re using JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">template strings</a> as well as the global node variable <code>__dirname</code> introduced in the last example. another important note here: in the last example we wrote our logic so that it could handle sending 3 types of files in the response, html, css &amp;&amp; javascript. but there are lots of other types of files we might use in a website, like font files, images, videos, 3D objects, etc. the server we wrote from scratch wouldn’t be able to handle those requests (unless we updated it of course), but our express server is ready for any/all filetypes.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> staticFiles = express.static(<span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/www`</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>then we’ll need to tell our server (which we called “app”) to “use” the staticFiles directory we specified in the previous line</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>app.use(staticFiles)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>now we’re ready to start listening for requests using our server’s <code>listen()</code> method (very similar to our last example)</p>
 
             </div>
             
