@@ -1,0 +1,14 @@
+{
+  "name": "express-server",
+  "version": "1.0.0",
+  "description": "a simple express server example",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nick Briz <nickbriz@gmail.com>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
